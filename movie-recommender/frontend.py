@@ -22,6 +22,9 @@ try:
 
 except Exception as e:
     st.error(f"Failed to load CSV or process data: {e}")
+st.write("File exists:", os.path.exists(csv_path))
+st.write("File size (bytes):", os.path.getsize(csv_path) if os.path.exists(csv_path) else "N/A")
+
 
 '''import os
 
