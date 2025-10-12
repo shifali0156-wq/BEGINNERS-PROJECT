@@ -1,63 +1,4 @@
-# --- Transform dataset ---
 import streamlit as st
-import os
-import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-
-st.title("🎬 Movie Recommendation System")
-
-def load_data():
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    csv_path = os.path.join(script_dir, 'movie.csv')
-    try:
-        data = pd.read_csv(csv_path)
-        return data
-    except Exception as e:
-        st.error(f"Error loading movie.csv: {e}")
-        return pd.DataFrame()
-
-data = load_data()
-
-if data.empty:
-    st.warning("Movie data is empty. Please check your 'movie.csv' file.")
-    st.stop()
-
-# Compute similarity matrix
-counter = CountVectorizer(max_features=4000, stop_words='english')
-vectors = counter.fit_transform(data['tags']).toarray()
-similarity = cosine_similarity(vectors)
-
-# Prepare similarity list for recommendations
-indexed_list = []
-for i in similarity:
-    movie = []
-    for index, score in enumerate(i):
-        movie.append((index, float(score)))
-    indexed_list.append(movie)
-
-def recommend(movie):
-    try:
-        movie_index = data[data.title_x == movie].index[0]
-    except IndexError:
-        st.error("Selected movie not found!")
-        return []
-    distances = indexed_list[movie_index]
-    movies_list = sorted(distances, reverse=True, key=lambda x: x[1])[1:11]
-    movies_names = [data.iloc[i[0]].title_x for i in movies_list]
-    return movies_names
-
-selected_movie = st.selectbox("Select a movie to get recommendations:", data.title_x.tolist())
-
-if st.button("Show Recommendations"):
-    results = recommend(selected_movie)
-    if results:
-        for movie_name in results:
-            st.subheader(movie_name)
-    else:
-        st.write("No recommendations available.")
-
-'''import streamlit as st
 import os
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
@@ -120,4 +61,3 @@ if st.button("Show Recommendations"):
     results = recommend(selected_movie)
     for row in results:
         st.subheader(row)
-'''
