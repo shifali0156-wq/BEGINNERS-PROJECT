@@ -1,10 +1,29 @@
+# --- Transform dataset ---
 import streamlit as st
+import os
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# --- Transform dataset ---
-import os
+st.title("Health Check Test")
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(script_dir, 'movie.csv')
+
+try:
+    data = pd.read_csv(csv_path)
+    st.write("CSV loaded successfully:", data.head())
+
+    counter = CountVectorizer(max_features=4000, stop_words='english')
+    vectors = counter.fit_transform(data['tags']).toarray()
+    similarity = cosine_similarity(vectors)
+
+    st.write("Similarity matrix computed successfully")
+
+except Exception as e:
+    st.error(f"Failed to load CSV or process data: {e}")
+
+'''import os
 
 def load_data():
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -46,6 +65,6 @@ if st.button("Show Recommendations"):
     results = recommend(selected_movie)
     for row in results:
         st.subheader(row)
-
+'''
  
 
