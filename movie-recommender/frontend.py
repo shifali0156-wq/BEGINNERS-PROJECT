@@ -10,6 +10,9 @@ st.title("Health Check Test")
 script_dir = os.path.dirname(os.path.abspath(__file__))
 csv_path = os.path.join(script_dir, 'movie.csv')
 
+
+similarity = None
+data = pd.DataFrame()
 try:
     data = pd.read_csv(csv_path)
     st.write("CSV loaded successfully:", data.head())
