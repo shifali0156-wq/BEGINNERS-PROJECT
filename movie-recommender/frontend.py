@@ -22,11 +22,6 @@ try:
 
 except Exception as e:
     st.error(f"Failed to load CSV or process data: {e}")
-st.write("File exists:", os.path.exists(csv_path))
-st.write("File size (bytes):", os.path.getsize(csv_path) if os.path.exists(csv_path) else "N/A")
-
-
-'''import os
 
 def load_data():
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -37,11 +32,11 @@ def load_data():
     except Exception as e:
         st.error(f"Error loading movie.csv: {e}")
         return pd.DataFrame()  # Return empty DataFrame on error
-
+"""
 counter=CountVectorizer(max_features=4000, stop_words='english')
 vectors=counter.fit_transform(data.tags).toarray()
 similarity=cosine_similarity(vectors)
-
+"""
 indexed_list=[]
 for i in similarity:
   movie=[]
@@ -68,6 +63,3 @@ if st.button("Show Recommendations"):
     results = recommend(selected_movie)
     for row in results:
         st.subheader(row)
-'''
- 
-
