@@ -13,24 +13,24 @@ csv_path = os.path.join(script_dir, 'movie.csv')
 similarity = None
 data = pd.DataFrame()
 try:
-    data = pd.read_csv(csv_path)
-    st.write("CSV loaded successfully:", data.head())
+  data = pd.read_csv(csv_path)
+  st.write("CSV loaded successfully:", data.head())
 
-    counter = CountVectorizer(max_features=4000, stop_words='english')
-    vectors = counter.fit_transform(data['tags']).toarray()
-    similarity = cosine_similarity(vectors)
+  counter = CountVectorizer(max_features=4000, stop_words='english')
+  vectors = counter.fit_transform(data['tags']).toarray()
+  similarity = cosine_similarity(vectors)
 
-    st.write("Similarity matrix computed successfully")
+  st.write("Similarity matrix computed successfully")
 
 except Exception as e:
-    st.error(f"Failed to load CSV or process data: {e}")
+  st.error(f"Failed to load CSV or process data: {e}")
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 csv_path = os.path.join(script_dir, 'movie.csv')
 try:
-    data = pd.read_csv(csv_path)
+  data = pd.read_csv(csv_path)
 except Exception as e:
-    st.error(f"Error loading movie.csv: {e}")
+  st.error(f"Error loading movie.csv: {e}")
 
 indexed_list=[]
 for i in similarity:
