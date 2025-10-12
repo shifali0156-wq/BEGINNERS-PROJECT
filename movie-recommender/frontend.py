@@ -5,9 +5,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 # --- Transform dataset ---
 import os
-script_dir = os.path.dirname(os.path.abspath(__file__))
-csv_path = os.path.join(script_dir, 'movie.csv')
-data = pd.read_csv(csv_path)
+
+def load_data():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(script_dir, 'movie.csv')
+    try:
+        data = pd.read_csv(csv_path)
+        return data
+    except Exception as e:
+        st.error(f"Error loading movie.csv: {e}")
+        return pd.DataFrame()  # Return empty DataFrame on error
 
 counter=CountVectorizer(max_features=4000, stop_words='english')
 vectors=counter.fit_transform(data.tags).toarray()
