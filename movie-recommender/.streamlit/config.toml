@@ -1,0 +1,2 @@
+[server]
+watchdog_ignore_patterns = ["*.git/*", "node_modules/*", "data/*"]
