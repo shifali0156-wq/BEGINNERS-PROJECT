@@ -4,7 +4,11 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # --- Transform dataset ---
-data = pd.read_csv("movie.csv")
+import os
+script_dir = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(script_dir, 'movie.csv')
+data = pd.read_csv(csv_path)
+
 counter=CountVectorizer(max_features=4000, stop_words='english')
 vectors=counter.fit_transform(data.tags).toarray()
 similarity=cosine_similarity(vectors)
