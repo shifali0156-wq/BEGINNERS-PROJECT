@@ -41,13 +41,13 @@ for i in similarity:
 
 # --- Recommendation logic ---
 def recommend(movie):
-    movie_index=data[data.title_x==movie].index[0]
-    distances=indexed_list[movie_index]
-    movies_list=sorted(distances,reverse=True,key=lambda x:x[1])[1:11]
-    movies_names=[]
-    for i in movies_list:
-        movies_names.append(data.iloc[i[0]].title_x)
-    return movies_names
+  movie_index=data[data.title_x==movie].index[0]
+  distances=indexed_list[movie_index]
+  movies_list=sorted(distances,reverse=True,key=lambda x:x[1])[1:11]
+  movies_names=[]
+  for i in movies_list:
+    movies_names.append(data.iloc[i[0]].title_x)
+  return movies_names
 
 
 # --- Streamlit UI ---
@@ -55,6 +55,6 @@ st.title("🎬 Movie Recommendation System")
 selected_movie = st.selectbox("Select a movie to get recommendations:", data.title_x)
 
 if st.button("Show Recommendations"):
-    results = recommend(selected_movie)
-    for row in results:
-        st.subheader(row)
+  results = recommend(selected_movie)
+  for row in results:
+    st.subheader(row)
