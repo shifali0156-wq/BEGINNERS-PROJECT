@@ -25,15 +25,12 @@ try:
 except Exception as e:
     st.error(f"Failed to load CSV or process data: {e}")
 
-def load_data():
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    csv_path = os.path.join(script_dir, 'movie.csv')
-    try:
-        data = pd.read_csv(csv_path)
-        return data
-    except Exception as e:
-        st.error(f"Error loading movie.csv: {e}")
-        return pd.DataFrame()  # Return empty DataFrame on error
+script_dir = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(script_dir, 'movie.csv')
+try:
+    data = pd.read_csv(csv_path)
+except Exception as e:
+    st.error(f"Error loading movie.csv: {e}")
 
 indexed_list=[]
 for i in similarity:
