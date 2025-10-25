@@ -17,7 +17,7 @@
 
 <h3>Installation</h3>
 <h5>Clone the repository</h5>
-<p>git clone https://github.com/yourusername/movie-recommender.git</p>
+<p>git clone https://github.com/shifali0156-wq/BEGINNERS-PROJECT.git</p>
 <p>cd movie-recommender</p>
 
 <h5>Create and activate a virtual environment</h5>
